@@ -16,3 +16,5 @@ RoxygenNote: 7.3.2
 Imports:
     tibble,
     dplyr
+URL: https://github.com/SlightlyBelowAverageDude/readyTable
+BugReports: https://github.com/SlightlyBelowAverageDude/readyTable/issues
