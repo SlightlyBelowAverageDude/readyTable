@@ -1,17 +1,18 @@
 Package: readyTable
-Type: Package
-Title: What the Package Does (Title Case)
+Title: Diagnose and Clean Data Frames Easily
 Version: 0.1.0
-Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
-  )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Authors@R: 
+    person("Christian", "Krengel", 
+           email = "your@email.com", 
+           role = c("aut", "cre"))
+Description: Tools to analyze data frames for common issues 
+    (missing values, constant columns, numeric-like strings, mixed types)
+    and to apply cleaning actions with a flexible configuration.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Imports:
+    tibble,
+    dplyr

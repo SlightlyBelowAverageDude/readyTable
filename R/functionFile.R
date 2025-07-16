@@ -1,3 +1,6 @@
+#' @importFrom stats median na.omit sd
+NULL
+
 #' Analyze a dataframe for common structural issues and information
 #'
 #' @param df A data.frame (or tibble)
@@ -231,7 +234,7 @@ suggest_cleaning <- function(df,
         column = col,
         action = "convert_type",
         reason = "numeric-like strings detected",
-        value = "character → numeric"
+        value = "character -> numeric"
       )
     }
 
