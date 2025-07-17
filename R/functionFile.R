@@ -286,7 +286,8 @@ suggest_cleaning <- function(df,
 #' Apply cleaning actions to selected columns with configurable rules
 #'
 #' @param df A data.frame or tibble
-#' @param columns Character vector of column names to clean
+#' @param keep_specific_columns Character vector of column names that must NOT be changed (default empty)
+#' @param change_specific_columns Character vector of column names that should be changed (default empty)
 #' @param na_threshold Percentage threshold of missing data before removal is suggested (default 90)
 #' @param drop_constant Whether to drop constant columns (default TRUE)
 #' @param convert_numeric_str Whether to convert numeric-like strings (default TRUE)
@@ -296,7 +297,8 @@ suggest_cleaning <- function(df,
 #' @return Cleaned data.frame
 #' @export
 apply_cleaning <- function(df,
-                           columns,
+                           keep_specific_columns = character(),
+                           change_specific_columns = character(),
                            na_threshold = 90,
                            drop_constant = TRUE,
                            convert_numeric_str = TRUE,
@@ -305,7 +307,26 @@ apply_cleaning <- function(df,
                            verbose = TRUE){
   #security checks
   stopifnot(is.data.frame(df))
-  stopifnot(is.character(columns))
+  stopifnot(is.character(keep_specific_columns))
+  stopifnot(is.character(change_specific_columns))
+
+  #check column specifications
+  if(length(change_specific_columns) > 0 && length(keep_specific_columns) > 0){
+    if(any(change_specific_columns %in% keep_specific_columns)){
+      stop("Some columns are listed in both change_specific_columns and keep_specific_columns.")
+    }
+  }
+
+  all_cols <- names(df)
+  if(length(change_specific_columns) > 0){
+    columns <- change_specific_columns
+  } else{
+    columns <- all_cols
+  }
+
+  if(length(keep_specific_columns) > 0){
+    columns <- setdiff(columns, keep_specific_columns)
+  }
 
   diag <- analyze_table(df)
   num_diag <- summarize_numeric(df)
@@ -340,7 +361,7 @@ apply_cleaning <- function(df,
     }
 
     #impute
-    if(impute && is.numeric(col_data) && any(is.na(col_data))) {
+    if(impute && is.numeric(col_data) && any(is.na(col_data))){
       fill_method <- if (!is.null(impute_method_override)){
         impute_method_override
       } else{
