@@ -6,7 +6,8 @@
 \usage{
 apply_cleaning(
   df,
-  columns,
+  keep_specific_columns = character(),
+  change_specific_columns = character(),
   na_threshold = 90,
   drop_constant = TRUE,
   convert_numeric_str = TRUE,
@@ -18,7 +19,9 @@ apply_cleaning(
 \arguments{
 \item{df}{A data.frame or tibble}
 
-\item{columns}{Character vector of column names to clean}
+\item{keep_specific_columns}{Character vector of column names that must NOT be changed (default empty)}
+
+\item{change_specific_columns}{Character vector of column names that should be changed (default empty)}
 
 \item{na_threshold}{Percentage threshold of missing data before removal is suggested (default 90)}
 
@@ -37,4 +40,20 @@ Cleaned data.frame
 }
 \description{
 Apply cleaning actions to selected columns with configurable rules
+}
+\examples{
+#Apply cleaning actions to selected columns
+df <- data.frame(
+  age = c(25, 30, NA, 45),
+  income = c(1000, NA, 2000, 1500),
+  const_col = rep("x", 4),
+  stringsAsFactors = FALSE
+)
+#Change only specific columns
+cleaned_df <- apply_cleaning(df, change_specific_columns = c("age", "income"))
+cleaned_df
+
+#Or keep specific columns untouched
+cleaned_df2 <- apply_cleaning(df, keep_specific_columns = c("const_col"))
+cleaned_df2
 }

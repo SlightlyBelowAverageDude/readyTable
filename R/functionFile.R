@@ -10,6 +10,16 @@ NULL
 #' @param check_empty_strings Whether to count empty strings (default TRUE)
 #' @return A tibble with one row for each column of the original dataframe
 #' @export
+#'
+#' @examples
+#' #Create a simple data frame with issues
+#' df <- data.frame(
+#'   a = c(1, 2, NA, 4),
+#'   b = c("1", "2", "3", ""),
+#'   const_col = rep(5, 4),
+#'   stringsAsFactors = FALSE
+#' )
+#' analyze_table(df)
 analyze_table <- function(df,
                           check_outliers = TRUE,
                           check_bad_names = TRUE,
@@ -114,6 +124,16 @@ analyze_table <- function(df,
 #' @param df A data.frame or tibble
 #' @return A tibble of summary stats and recommended fill method per numeric column
 #' @export
+#'
+#' @examples
+#' #Summarize numeric columns
+#' df <- data.frame(
+#'   x = c(10, 20, 30, NA),
+#'   y = c(100, 200, 300, 400),
+#'   z = c("a", "b", "c", "d"),
+#'   stringsAsFactors = FALSE
+#' )
+#' summarize_numeric(df)
 summarize_numeric <- function(df){
   #security check
   stopifnot(is.data.frame(df))
@@ -188,6 +208,16 @@ summarize_numeric <- function(df){
 #' @param suggest_impute Whether to suggest imputation for numeric columns (default TRUE)
 #' @return A tibble with suggested actions.
 #' @export
+#'
+#' @examples
+#' #Suggest cleaning actions for a data frame
+#' df <- data.frame(
+#'   age = c(25, 30, NA, 45),
+#'   income = c(1000, NA, 2000, 1500),
+#'   const_col = rep("x", 4),
+#'   stringsAsFactors = FALSE
+#' )
+#' suggest_cleaning(df)
 suggest_cleaning <- function(df,
                              na_threshold = 90,
                              suggest_constant = TRUE,
@@ -296,6 +326,22 @@ suggest_cleaning <- function(df,
 #' @param verbose Whether to print actions (default TRUE)
 #' @return Cleaned data.frame
 #' @export
+#'
+#' @examples
+#' #Apply cleaning actions to selected columns
+#' df <- data.frame(
+#'   age = c(25, 30, NA, 45),
+#'   income = c(1000, NA, 2000, 1500),
+#'   const_col = rep("x", 4),
+#'   stringsAsFactors = FALSE
+#' )
+#' #Change only specific columns
+#' cleaned_df <- apply_cleaning(df, change_specific_columns = c("age", "income"))
+#' cleaned_df
+#'
+#' #Or keep specific columns untouched
+#' cleaned_df2 <- apply_cleaning(df, keep_specific_columns = c("const_col"))
+#' cleaned_df2
 apply_cleaning <- function(df,
                            keep_specific_columns = character(),
                            change_specific_columns = character(),

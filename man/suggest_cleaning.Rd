@@ -29,3 +29,13 @@ A tibble with suggested actions.
 \description{
 Suggest cleaning actions based on diagnostics
 }
+\examples{
+#Suggest cleaning actions for a data frame
+df <- data.frame(
+  age = c(25, 30, NA, 45),
+  income = c(1000, NA, 2000, 1500),
+  const_col = rep("x", 4),
+  stringsAsFactors = FALSE
+)
+suggest_cleaning(df)
+}

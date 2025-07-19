@@ -29,3 +29,13 @@ A tibble with one row for each column of the original dataframe
 \description{
 Analyze a dataframe for common structural issues and information
 }
+\examples{
+#Create a simple data frame with issues
+df <- data.frame(
+  a = c(1, 2, NA, 4),
+  b = c("1", "2", "3", ""),
+  const_col = rep(5, 4),
+  stringsAsFactors = FALSE
+)
+analyze_table(df)
+}

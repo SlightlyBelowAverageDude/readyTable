@@ -15,3 +15,13 @@ A tibble of summary stats and recommended fill method per numeric column
 \description{
 Summarize numeric columns with stats and suggested fill
 }
+\examples{
+#Summarize numeric columns
+df <- data.frame(
+  x = c(10, 20, 30, NA),
+  y = c(100, 200, 300, 400),
+  z = c("a", "b", "c", "d"),
+  stringsAsFactors = FALSE
+)
+summarize_numeric(df)
+}

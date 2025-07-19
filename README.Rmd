@@ -9,7 +9,7 @@ It provides functions to detect issues such as missing values, constant columns,
 
 ---
 
-## ✨ Installation
+## Installation
 
 You can install the development version from GitHub with:
 
@@ -33,10 +33,40 @@ log
 #a tibble with suggested actions for each problematic column
 
 #Step 2: Deciding which columns to fix
-cols_to_fix <- c("age", "income", "const_col")
+(see parameter explanation below for how to specify the columns)
 
 #Step 3: Applying cleaning
-cleaned_df <- apply_cleaning(df, columns = cols_to_fix)
+cleaned_df <- apply_cleaning(df, change_specific_columns = c("age", "income"))
 cleaned_df
 #Returns the cleaned data frame
 ```
+
+## Key Functions
+analyze_table(df):
+Analyze a data frame for missing values, constant columns, bad names, mixed types, etc.
+Returns a tibble summarizing issues per column.
+
+summarize_numeric(df):
+Summarize numeric columns with stats (mean, median, skewness, etc.) and a recommended imputation method.
+
+suggest_cleaning(df):
+Generate a list of suggested cleaning actions (impute, drop, convert) based on diagnostics.
+
+apply_cleaning(df, ...):
+Apply cleaning actions to selected columns, with optional overrides.
+
+### How to control which columns are cleaned
+The function apply_cleaning() gives you flexibility in deciding which columns to process:
+
+keep_specific_columns:
+A character vector of the names of the columns that you want to keep as they are, without any cleaning actions.
+
+change_specific_columns:
+A character vector of the names of the columns that you want to clean.
+If provided, only these columns will be considered for cleaning.
+
+When both are empty:
+If you don’t specify either parameter, apply_cleaning() will attempt to clean all columns.
+
+When both are used:
+You can use both together. If there is an overlap (a column appears in both lists), the function will stop and alert you.

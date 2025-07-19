@@ -15,6 +15,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports:
     tibble,
-    dplyr
+    dplyr,
+    stats
 URL: https://github.com/SlightlyBelowAverageDude/readyTable
 BugReports: https://github.com/SlightlyBelowAverageDude/readyTable/issues
